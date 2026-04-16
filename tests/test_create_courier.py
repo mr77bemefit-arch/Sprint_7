@@ -40,6 +40,8 @@ class TestCreateCourier:
             json=generate_courier_data)
         
         assert response2.status_code == 409
+        assert response.json()["message"] == ResponseMessages.COURIER_CREATED_MISTAKE
+
 
         login_response = requests.post(
             f"{Url.MAIN_URL}{Url.LOGIN_COURIER}",
@@ -112,6 +114,7 @@ class TestLoginCourier:
             json=generate_courier_data)
 
         assert response2.status_code == 200
+        assert "id" in response2.json()
         
         courier_id = response2.json().get("id")
         if courier_id:
@@ -128,6 +131,7 @@ class TestLoginCourier:
         response2 = requests.post(f"{Url.MAIN_URL}{Url.LOGIN_COURIER}",
             json=generate_courier_data)
 
+        assert response2.status_code == 200
         assert "id" in response2.json()
 
         courier_id = response2.json().get("id")
@@ -170,6 +174,7 @@ class TestLoginCourier:
         )
 
         assert response2.status_code == 404
+        assert response2.json()["message"] == ResponseMessages.WRONG_FIELD_LOGIN_MISTAKE
 
         courier_id = response2.json().get("id")
         if courier_id:
@@ -184,6 +189,7 @@ class TestLoginCourier:
             json=generate_courier_data
         )
 
+        assert response2.status_code == 404
         assert response2.json()["message"] == ResponseMessages.WRONG_FIELD_LOGIN_MISTAKE
 
 
@@ -191,7 +197,6 @@ class TestCreateOrder:
 
     @allure.title('Тест успешного создания заказа')
     @pytest.mark.parametrize('scooter_color', [['BLACK'], ['GREY'], ['BLACK', 'GREY'], []])
-
     def test_create_order_success(self, order_data, scooter_color):
         order_data["color"] = scooter_color
                
@@ -208,4 +213,5 @@ class TestOrderList:
     def test_get_order_list_success(self):
         response = requests.get(f"{Url.MAIN_URL}{Url.CREATE_ORDER}") 
         
+        assert response.status_code == 200
         assert "orders" in response.json()
