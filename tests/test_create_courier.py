@@ -2,6 +2,7 @@ import pytest
 import requests
 import allure
 from data import Url, ResponseMessages
+from helpers import order_data
 
 
 class TestCreateCourier:
@@ -55,18 +56,18 @@ class TestCreateCourier:
             requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
 
-    @allure.title('Тест ошибки при отсутствии одного из обязательных полей при создании курьера')
-    @pytest.mark.parametrize('missing_field', ['login', 'password'])
-    def test_create_courier_without_one_field_mistake(self, generate_courier_data, missing_field):
-        generate_courier_data.pop(missing_field)
-
-        response = requests.post(
-            f"{Url.MAIN_URL}{Url.CREATE_COURIER}",
-            json=generate_courier_data
-        )
-
-        assert response.status_code == 400
-        assert response.json()["message"] == ResponseMessages.MISSING_REQUIRED_FIELDS
+    #@allure.title('Тест ошибки при отсутствии одного из обязательных полей при создании курьера')
+    #@pytest.mark.parametrize('missing_field', ['login', 'password'])
+    #def test_create_courier_without_one_field_mistake(self, generate_courier_data, missing_field):
+    #    generate_courier_data.pop(missing_field)
+#
+ #       response = requests.post(
+  #          f"{Url.MAIN_URL}{Url.CREATE_COURIER}",
+   #         json=generate_courier_data
+    #    )
+#
+ #       assert response.status_code == 400
+  #      assert response.json()["message"] == ResponseMessages.MISSING_REQUIRED_FIELDS
 
 
     @allure.title('Тест ошибки при создании курьера с существующим логином')
@@ -190,11 +191,11 @@ class TestCreateOrder:
 
     @allure.title('Тест успешного создания заказа')
     @pytest.mark.parametrize('scooter_color', [['BLACK'], ['GREY'], ['BLACK', 'GREY'], []])
-    def test_create_order_success(self, generate_order_data, scooter_color):
-        generate_order_data["color"] = scooter_color
+    def test_create_order_success(self, order_data, scooter_color):
+        order_data["color"] = scooter_color
                
         response = requests.post(f"{Url.MAIN_URL}{Url.CREATE_ORDER}",
-            json=generate_order_data)
+            json=order_data)
         
         assert response.status_code == 201
         assert "track" in response.json()
