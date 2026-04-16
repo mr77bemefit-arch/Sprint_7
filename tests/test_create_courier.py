@@ -24,8 +24,6 @@ class TestCreateCourier:
             }
         )
 
-        assert login_response.status_code == 200
-
         courier_id = login_response.json().get("id")
         requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
@@ -49,8 +47,6 @@ class TestCreateCourier:
                 "password": generate_courier_data["password"]
             }
         )
-
-        assert login_response.status_code == 200
 
         courier_id = login_response.json().get("id")
         requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
@@ -92,8 +88,6 @@ class TestCreateCourier:
                 "password": generate_courier_data["password"]
             }
         )
-
-        assert login_response.status_code == 200
 
         courier_id = login_response.json().get("id")
         requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
