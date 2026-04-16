@@ -191,6 +191,7 @@ class TestCreateOrder:
 
     @allure.title('Тест успешного создания заказа')
     @pytest.mark.parametrize('scooter_color', [['BLACK'], ['GREY'], ['BLACK', 'GREY'], []])
+
     def test_create_order_success(self, order_data, scooter_color):
         order_data["color"] = scooter_color
                
