@@ -39,7 +39,6 @@ class TestCreateCourier:
         assert response2.status_code == 409
         assert response.json()["message"] == ResponseMessages.COURIER_CREATED_MISTAKE
 
-
         login_response = requests.post(
             f"{Url.MAIN_URL}{Url.LOGIN_COURIER}",
             json={
@@ -111,7 +110,6 @@ class TestLoginCourier:
         requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
         
-
     @allure.title('Тест успешный запрос при логине возвращает id')
     def test_login_courier_success_return_id(self, generate_courier_data):
 
