@@ -27,8 +27,7 @@ class TestCreateCourier:
         assert login_response.status_code == 200
 
         courier_id = login_response.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
 
     @allure.title('Тест невозможности создания двух одинаковых курьеров')
@@ -54,8 +53,7 @@ class TestCreateCourier:
         assert login_response.status_code == 200
 
         courier_id = login_response.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
 
     #@allure.title('Тест ошибки при отсутствии одного из обязательных полей при создании курьера')
@@ -98,8 +96,7 @@ class TestCreateCourier:
         assert login_response.status_code == 200
 
         courier_id = login_response.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
 
 
 class TestLoginCourier:
@@ -117,8 +114,7 @@ class TestLoginCourier:
         assert "id" in response2.json()
         
         courier_id = response2.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
         
 
@@ -135,8 +131,7 @@ class TestLoginCourier:
         assert "id" in response2.json()
 
         courier_id = response2.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
 
 
     @allure.title('Тест ошибки при отсутствии одного из обязательных полей при логине курьера')
@@ -156,8 +151,7 @@ class TestLoginCourier:
         assert response2.json()["message"] == ResponseMessages.MISSING_REQUIRED_FIELDS_LOGIN
 
         courier_id = response2.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
 
 
     @allure.title('Тест ошибки при неверном логине или пароле курьера')
@@ -177,8 +171,7 @@ class TestLoginCourier:
         assert response2.json()["message"] == ResponseMessages.WRONG_FIELD_LOGIN_MISTAKE
 
         courier_id = response2.json().get("id")
-        if courier_id:
-            requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
+        requests.delete(f"{Url.MAIN_URL}{Url.DELETE_COURIER}{courier_id}")
         
 
     @allure.title('Тест ошибки при логине не существующего курьера)')
