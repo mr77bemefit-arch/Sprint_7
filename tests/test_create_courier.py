@@ -1,7 +1,7 @@
 import pytest
 import requests
 import allure
-from data import Url, ResponseMessages
+from data import Url, ResponseMessages, OrderData
 from helpers import generate_order_data
 
 
@@ -205,7 +205,7 @@ class TestCreateOrder:
     @allure.title('Тест успешного создания заказа')
     @pytest.mark.parametrize('scooter_color', [['BLACK'], ['GREY'], ['BLACK', 'GREY'], []])
     def test_create_order_success(self, scooter_color):
-        order_data = generate_order_data.copy()
+        order_data = OrderData.generate_order_data.copy()
         order_data["color"] = scooter_color
 
         response = self.create_order(order_data)
